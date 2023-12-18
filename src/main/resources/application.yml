@@ -1,0 +1,66 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/task-management-source?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
+    username: "root"
+    password: "root"
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+    open-in-view: true
+  sql:
+    init:
+      mode: never
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  active:
+    profile: dev
+  application:
+    name: taskmanagementsource
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: 8ec9255e8171b489b12d
+            client-secret: e0f2b3f853c0c7314d93059b7d1fa8323cadee56
+            scope: user:read
+  cloud:
+    vault:
+      uri: http://127.0.0.1:8200
+      token: '00000000-0000-0000-0000-000000000000'
+      kv:
+        enabled: true
+  logging:
+    level:
+      org.hibernate.SQL: DEBUG
+      org.hibernate.orm.jdbc.bind: TRACE
+      org.springframework.security: DEBUG
+      org.springframework.security.oauth2: DEBUG
+  server:
+    error:
+      whitelabel:
+        enabled: true
+  config:
+    import: vault://
+  thymeleaf: # Thymeleaf
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: file:src/main/resources/templates/
+  resources: # Static resources
+    static-locations: file:src/main/resources/static/
+    cache:
+      period: 0
+
+binding-result-package: org.springframework.validation.BindingResult
+google.recaptcha:
+  site: 6LcTFzMpAAAAADVAMnnyZghg6IbGYrEJjVNDn6NW
+  secret: 6LcTFzMpAAAAAKoZwW9bxnfASNtnHWYhW9fw-9Hm

@@ -1,0 +1,64 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Task Management Source</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navigation}"></div>
+<main>
+    <div class="form-card-wrapper flex-wrapper">
+        <div class="form-wrapper flex-wrapper">
+            <h1 class="form-card-title">LOGIN</h1>
+            <form th:action="@{/users/login}"
+                  th:method="POST">
+                <div class="flex-wrapper" style="flex-direction: column; min-height: 1.2rem">
+                    <small th:if="${badCredentials}" class="error"
+                           th:text="'Invalid username and/or password'">
+                        error message
+                    </small>
+                </div>
+
+                <div class="flex-wrapper" style="flex-direction: column;">
+                    <div>
+                        <label for="inputUsername" class="col-form-label ">Username</label>
+                    </div>
+                    <div>
+                        <input type="text" name="username" th:value="username123" required minlength="4"
+                               maxlength="20" id="inputUsername" class="form-control"
+                               aria-describedby="usernameHelpInline">
+                    </div>
+                </div>
+
+                <div class="flex-wrapper" style="flex-direction: column;">
+                    <div class="">
+                        <label for="inputPassword" class="col-form-label ">Password</label>
+                    </div>
+                    <div>
+                        <input type="password" name="password" th:value="123123" required minlength="4"
+                               maxlength="20" id="inputPassword" class="form-control"
+                               aria-describedby="passwordHelpInline">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="remember-me">Remember me</label>
+                    <input name="remember-me" id="remember-me" type="checkbox">
+                </div>
+
+                <div class="mybtn-wrapper">
+                    <button class="mybtn" type="submit">LOGIN</button>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+</main>
+    <div th:replace="~{fragments/footer}"></div>
+</body>
+</html>

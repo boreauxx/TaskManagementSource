@@ -1,0 +1,51 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Task Management Source</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <div th:replace="~{fragments/navigation}"></div>
+
+    <main class="flex-wrapper admin-wrapper">
+
+        <div class="flex-wrapper" id="admin-form">
+            <div class="flex-wrapper" th:if="${param.error}" style="color: red" th:text="${param.error}"></div>
+            <h1 class="form-card-title">Open user profile</h1>
+            <form th:action="@{/admin}" th:method="POST">
+                <label for="inputUsername" class="col-form-label">Enter username</label>
+                <input type="text" id="inputUsername" class="form-control" aria-describedby="usernameHelpInLine"
+                       name="username">
+                <button class="mybtn" type="submit">Open profile</button>
+            </form>
+        </div>
+        <div class="flex-wrapper">
+            <table>
+                <tr style="border-bottom:2px solid grey;"   >
+                    <th th:text="'Username'"></th>
+                    <th th:text="'Full name'"></th>
+                    <th th:text="'Email'"></th>
+                    <th th:text="'Age'"></th>
+                    <th th:text="'Level'"></th>
+                    <th th:text="'Role'"></th>
+                </tr>
+                <tr th:each="user : ${allUsers}">
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.fullName}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.age}"></td>
+                    <td th:text="${user.level}"></td>
+                    <td th:text="${user.role.name}"></td>
+                </tr>
+            </table>
+        </div>
+
+    </main>
+
+    <div th:replace="~{fragments/footer}"></div>
+</body>
+</html>

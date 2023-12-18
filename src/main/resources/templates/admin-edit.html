@@ -1,0 +1,62 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Task Management Source</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navigation}"></div>
+
+<main class="flex-wrapper admin-wrapper">
+    <div class="profile-card-wrapper flex-wrapper">
+        <div class="profile-card">
+            <div class="text-center" style="text-align: center;">
+                <img th:src="@{/images/profile.jpg}" width="100" class="rounded-circle">
+            </div>
+            <div class="text-center">
+                <div class="profile-card-div flex-wrapper">
+                    <h5>Username:</h5>
+                    <span th:text="${user.username}">adderallenjoyer99</span>
+                </div>
+                <div class="profile-card-div flex-wrapper">
+                    <h5>Full name:</h5>
+                    <span th:text="${user.fullName}">John Petrovich</span>
+                </div>
+                <div class="profile-card-div flex-wrapper">
+                    <h5>Age:</h5>
+                    <span th:text="${user.age}">24</span>
+                </div>
+                <div class="profile-card-div flex-wrapper">
+                    <h5>Role:</h5>
+                    <span th:text="${user.role.name}">GUEST</span>
+                </div>
+                <div class="profile-card-div flex-wrapper">
+                    <h5>Level:</h5>
+                    <span th:text="${user.level}"
+                          class="bg-secondary p-1 px-4 rounded text-white">Rookie</span>
+                </div>
+
+                <div class="admin-buttons flex-wrapper">
+                    <form th:method="POST" th:action="@{/admin/delete/{id}(id=${user.id})}">
+                        <button th:text="'Delete User'" class="admin-btn" type="submit"></button>
+                    </form>
+                    <a th:href="@{/admin/update/{id}(id=${user.id})}" th:text="'Update User'" class="admin-btn">
+                        Back
+                    </a>
+                    <a th:href="@{/home}" th:text="'Back'" class="admin-btn">
+                        Back
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer}"></div>
+</body>
+</html>

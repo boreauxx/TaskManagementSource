@@ -1,0 +1,107 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Task Management Source</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6Ld27zIpAAAAALSPj9gEAeTHgn8M12f9nL_MW4g-"></script>
+</head>
+<body>
+    <div th:replace="~{fragments/navigation}"></div>
+
+    <main>
+        <div class="form-card-wrapper flex-wrapper">
+            <div class="form-wrapper flex-wrapper">
+                <h1 class="form-card-title">REGISTER</h1>
+                <form id="registration-form"
+                      th:action="@{/users/register}" th:method="POST" th:object="${userRegisterBindingModel}">
+                    <div class="flex-wrapper" style="flex-direction:column;">
+                        <div>
+                            <label th:for="inputUsername" class="col-form-label">Username</label>
+                        </div>
+                        <div class="flex-wrapper" style="flex-direction:column;">
+                            <input th:field="*{username}" th:type="text" th:id="inputUsername" th:class="form-control"
+                                   th:errorclass="'is-invalid alert-danger'" th:aria-describedby="usernameHelpInline">
+                            <small th:errors="*{username}" class="error">error message</small>
+                        </div>
+                    </div>
+
+                    <div class="flex-wrapper" style="flex-direction:column;">
+                        <div>
+                            <label th:for="inputFullName" class="col-form-label ">Full Name</label>
+                        </div>
+                        <div class="flex-wrapper" style="flex-direction:column;">
+                            <input th:field="*{fullName}" th:type="text" th:id="inputFullName" th:class="form-control"
+                                   th:aria-describedby="fullNameHelpInline" th:errorclass="'is-invalid alert-danger'">
+                            <small th:errors="*{fullName}" class="error">error message</small>
+                        </div>
+                    </div>
+
+                    <div class="flex-wrapper" style="flex-direction:column;">
+                        <div>
+                            <label th:for="inputEmail" class="col-form-label ">Email</label>
+                        </div>
+                        <div class="flex-wrapper" style="flex-direction:column;">
+                            <input th:field="*{email}" th:type="email" th:id="inputEmail" th:class="form-control"
+                                   th:errorclass="'is-invalid alert-danger'" th:aria-describedby="emailHelpInline">
+                            <small th:errors="*{email}" class="error">error message</small>
+                        </div>
+                    </div>
+                    <div class="flex-wrapper" style="flex-direction:column;">
+                        <div>
+                            <label th:for="inputAge" class="col-form-label ">Age</label>
+                        </div>
+                        <div class="flex-wrapper" style="flex-direction:column;">
+                            <input th:field="*{age}" th:type="number" th:id="inputAge" th:class="form-control"
+                                   th:errorclass="'is-invalid alert-danger'" th:aria-describedby="ageHelpInline">
+                            <small th:errors="*{age}" class="error">error message</small>
+                        </div>
+                    </div>
+                    <div class="flex-wrapper" style="flex-direction:column;">
+                        <div>
+                            <label th:for="inputPassword" class="col-form-label ">Password</label>
+                        </div>
+                        <div class="flex-wrapper" style="flex-direction:column;">
+                            <input th:field="*{password}" th:type="password" th:id="inputPassword"
+                                   th:class="form-control" th:errorclass="'is-invalid alert-danger'"
+                                   th:aria-describedby="passwordHelpInline">
+                            <small th:errors="*{password}" class="error">error message</small>
+                        </div>
+                    </div>
+
+                    <div class="flex-wrapper" style="flex-direction:column;">
+                        <div>
+                            <label th:for="inputConfirmPassword" class="col-form-label ">Confirm Password</label>
+                        </div>
+                        <div class="flex-wrapper" style="flex-direction:column;">
+                            <input th:field="*{confirmPassword}" th:type="password" th:id="inputConfirmPassword"
+                                   th:class="form-control" th:errorclass="'is-invalid alert-danger'"
+                                   th:aria-describedby="confirmPasswordHelpInline">
+                            <small th:errors="*{confirmPassword}" class="error">error message</small>
+
+                        </div>
+                    </div>
+                    <div class="mybtn-wrapper">
+                        <button class="g-recaptcha mybtn"
+                                data-sitekey="6Ld27zIpAAAAALSPj9gEAeTHgn8M12f9nL_MW4g-"
+                                th:attr="data-sitekey=${@reCaptchaConfiguration.getSite()}"
+                                data-callback='onSubmit'
+                                data-action='submit'>Submit
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script>
+            function onSubmit(token) {document.getElementById("registration-form").submit();}
+        </script>
+    </main>
+
+    <div th:replace="~{fragments/footer}"></div>
+
+</body>
+</html>

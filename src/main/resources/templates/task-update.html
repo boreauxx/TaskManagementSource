@@ -1,0 +1,81 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Management Source</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+<div th:replace="~{fragments/navigation}"></div>
+
+<main>
+    <div class="flex-wrapper add-task-wrapper" th:object="${updateTaskBindingModel}">
+
+        <form th:action="@{/tasks/update/{id}(id=${updateTaskBindingModel.id})}" th:method="POST"
+              enctype="multipart/form-data" id="update-task-form" class="add-task-form flex-wrapper">
+
+            <h3 class="">Update Task</h3>
+            <div>
+                <div class="flex-wrapper" style="flex-direction: column;">
+                    <label for="inputTitle" class="col-form-label ">Title</label>
+                </div>
+                <div class="flex-wrapper" style="flex-direction: column;">
+                    <input th:field="*{title}" type="text" id="inputTitle" class="form-control"
+                           aria-describedby="inputTitleError">
+                    <small id="inputTitleError" th:errors="*{title}" class="bg-danger rounded">Title length must be
+                        more than 3 characters</small>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex-wrapper col" style="flex-direction: column;">
+                    <label for="inputDescription" class="col-form-label ">Description</label>
+                </div>
+                <div class="flex-wrapper col" style="flex-direction: column;">
+                        <textarea th:field="*{description}" id="inputDescription" class="form-control"
+                                  aria-describedby="inputDescriptionError"></textarea>
+                    <small id="inputDescriptionError" th:errors="*{description}"
+                           class="form-text bg-danger rounded">
+                        Description length must be more than 5 characters
+                    </small>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex-wrapper col" style="flex-direction: column;">
+                    <label th:for="inputDueDate" class="col-form-label">Due Date</label>
+                </div>
+                <div class="flex-wrapper col" style="flex-direction: column;">
+                    <input th:field="*{dueDate}"
+                           type="date" id="inputDueDate" class="form-control">
+                    <small th:errors="*{dueDate}"    id="inputDueDateError" class="form-text bg-danger rounded">
+                        Due date cannot be in the past.
+                    </small>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex-wrapper col" style="flex-direction: column;">
+                    <label for="status">Status</label>
+                    <select th:field="*{status}"
+                            id="status" name="status" class="custom-select" >
+                        <option value="" selected disabled>Select status</option>
+                        <option th:each="status: ${statuses}" th:text="${status}" th:value="${status}">Select status
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button id="update-btn" class="mybtn" type="submit">Update Task</button>
+            </div>
+
+        </form>
+    </div>
+</main>
+<div th:replace="~{fragments/footer}"></div>
+</body>
+</html>

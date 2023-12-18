@@ -1,0 +1,65 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Task Management Source</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/navigation}"></div>
+    <main class="flex-wrapper admin-wrapper"  th:object="${userViewModel}">
+        <div class="profile-card-wrapper flex-wrapper">
+            <div class="profile-card">
+
+                <div class="text-center flex-wrapper" style="flex-direction: column;">
+                    <img th:src="${'\images\' + userViewModel.imageUrl}"
+                         width="100" class="rounded-circle">
+                    <form th:action="@{/upload}" th:method="POST" th:object="${pictureUploadBindingModel}"
+                          class="flex-wrapper" style="flex-direction: column;" enctype="multipart/form-data">
+                        <input type="hidden" name="id" id="userId" th:value="${userViewModel.id}">
+                        <input th:field="*{picture}"
+                               type="file" name="picture" id="inputPicture">
+                        <button type="submit" id="upload-btn">Upload profile picture</button>
+                    </form>
+                </div>
+
+                <div class="text-center">
+                    <div class="profile-card-div flex-wrapper">
+                        <h5>Username:</h5>
+                        <span th:text="*{username}">adderallenjoyer99</span>
+                    </div>
+                    <div class="profile-card-div flex-wrapper">
+                        <h5>Full name:</h5>
+                        <span th:text="*{fullName}">John Petrovich</span>
+                    </div>
+                    <div class="profile-card-div flex-wrapper">
+                        <h5>Age:</h5>
+                        <span th:text="*{age}">24</span>
+                    </div>
+                    <div class="profile-card-div flex-wrapper">
+                        <h5>Level:</h5>
+                        <span th:text="*{level}"
+                              class="bg-secondary p-1 px-4 rounded text-white">Rookie</span>
+                    </div>
+                    <div class="profile-card-div flex-wrapper">
+                        <h5>Role:</h5>
+                        <span th:text="*{role.name}">GUEST</span>
+                    </div>
+
+                    <div class="flex-wrapper" style="justify-content: space-evenly;">
+                        <div class="admin-buttons flex-wrapper">
+                            <a th:href="@{/home}" th:text="Back" class="admin-btn">Back</a>
+                        </div>
+                        <div class="admin-buttons flex-wrapper">
+                            <a th:href="@{/users/update/{id}(id=${userViewModel.id})}" th:text="Edit" class="admin-btn">Update</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div th:replace="~{fragments/footer}"></div>
+</body>
+</html>
